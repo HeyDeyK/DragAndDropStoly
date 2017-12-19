@@ -25,39 +25,54 @@ namespace DragAndDrop
     public partial class MainWindow : Window
     {
         private bool _isRectDragInProg;
-
         public MainWindow()
         {
             InitializeComponent();
-            
+            double[] nazvy= new double[5];
+            var engine = new FileHelperEngine<Orders>();
+            var records = engine.ReadFile("Output.txt");
+
+            foreach (var record in records)
+            {
+                
+                Canvas.SetTop(rect1, record.y);
+                Canvas.SetLeft(rect1, record.x);
+            }
+
         }
 
         private void rect_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _isRectDragInProg = true;
-            rect.CaptureMouse();
+            rect1.CaptureMouse();
         }
+
 
         private void rect_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             _isRectDragInProg = false;
-            rect.ReleaseMouseCapture();
+            rect1.ReleaseMouseCapture();
             var engine = new FileHelperEngine<Orders>();
-
+            int ctr1 = 1;
             var orders = new List<Orders>();
 
-            
-            double x = Canvas.GetLeft(rect);
-            int x1 = Convert.ToInt32(x);
-            double y = Canvas.GetTop(rect);
-            int y1 = Convert.ToInt32(y);
-            orders.Add(new Orders()
+            for (int i = 0; i < 1; i++)
             {
-                x = x1,
-                y = y1
-            });
-            engine.WriteFile("Output.Txt", orders);
-            Console.WriteLine("X: " + x + " Y: " + y);
+                double x = Canvas.GetLeft(rect1);
+                int x1 = Convert.ToInt32(x);
+                double y = Canvas.GetTop(rect1);
+                int y1 = Convert.ToInt32(y);
+                orders.Add(new Orders()
+                {
+                    x = x1,
+                    y = y1
+                });
+                
+                Console.WriteLine("X: " + x + " Y: " + y);
+                ctr1++;
+            }
+            engine.WriteFile("Output.txt", orders);
+
         }
 
         private void rect_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
@@ -68,10 +83,10 @@ namespace DragAndDrop
             var mousePos = e.GetPosition(canvas);
 
             // center the rect on the mouse
-            double left = mousePos.X - (rect.ActualWidth / 2);
-            double top = mousePos.Y - (rect.ActualHeight / 2);
-            Canvas.SetLeft(rect, left);
-            Canvas.SetTop(rect, top);
+            double left = mousePos.X - (rect1.ActualWidth / 2);
+            double top = mousePos.Y - (rect1.ActualHeight / 2);
+            Canvas.SetLeft(rect1, left);
+            Canvas.SetTop(rect1, top);
             
         }
         [DelimitedRecord("|")]

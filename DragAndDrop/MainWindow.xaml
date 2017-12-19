@@ -8,17 +8,8 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <Canvas Name="canvas">
-            <Rectangle
-                Name="rect"
-                Width="50"
-                Height="50"
-                Canvas.Left="0"
-                Canvas.Top="0"
-                Fill="Red"
-                MouseLeftButtonDown="rect_MouseLeftButtonDown"
-                MouseLeftButtonUp="rect_MouseLeftButtonUp"
-                MouseMove="rect_MouseMove"
-                />
+            <Rectangle Name="rect1" Width="50" Height="50" Canvas.Left="0" Canvas.Top="0" Fill="Red" MouseLeftButtonDown="rect_MouseLeftButtonDown" MouseLeftButtonUp="rect_MouseLeftButtonUp" MouseMove="rect_MouseMove"/>
+
         </Canvas>
         
 
